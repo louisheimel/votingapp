@@ -102,7 +102,10 @@ module.exports = function (app, passport) {
 		.get(pollHandler.getAllPolls);
 		
 	app.route('/api/vote/:poll/:option')
-		.get(pollHandler.votePoll)
+		.get(pollHandler.votePoll);
+		
+	app.route('/delete/poll/:id')
+		.get(isLoggedIn, pollHandler.deletePoll);
 		
 	app.route('/api/:id/polls')
 		.get(isLoggedIn, pollHandler.getAllPolls);

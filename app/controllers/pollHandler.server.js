@@ -55,8 +55,14 @@ function PollHandler() {
 			var $ = cheerio.load(template);
 			var pollsCompiler = Handlebars.compile($('#polls').text());
 			$('body').append(pollsCompiler(polls));
-// 			res.json(polls)
 			res.end($.html());
+        })
+    }
+    
+    this.deletePoll = function(req, res) {
+        Poll.remove({_id: req.params.id, _creator: req.session.passport.user}, function(err, polls) {
+            if (err) throw err;
+            res.redirect('/polls');
         })
     }
 }

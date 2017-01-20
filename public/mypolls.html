@@ -19,10 +19,10 @@
 		</script>
 		<script id="polls" type="x-handlebars-template">
 		    <div class="poll-data-container">
-			    <h1 class="poll-data">{{label}}</h1>
+			    <h1 class="poll-data">Here are your polls:</h1>
 			    <ul class="options poll-data">
-			      {{#each options}}
-			        <li><a href="/api/vote/{{../_id}}/{{@index}}" id={{this.option}}>{{this.option}}</a></li>
+			      {{#each this}}
+			        <li><a href="/poll/{{this.id}}">{{this.label}}</a></li>
 			      {{/each}}
 			    </ul>
 		    </div>

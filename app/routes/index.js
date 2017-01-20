@@ -2,7 +2,11 @@
 
 var path = process.cwd();
 var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
-var PostHandler = require(path + '/app/controllers/postHandler.server.js');
+var PollHandler = require(path + '/app/controllers/pollHandler.server.js');
+var NewPollHandler = require(path + '/app/controllers/newPollHandler.server.js');
+var fs = require('fs');
+var cheerio = require('cheerio');
+var Handlebars = require('handlebars');
 
 module.exports = function (app, passport) {
 
@@ -15,7 +19,8 @@ module.exports = function (app, passport) {
 	}
 
 	var clickHandler = new ClickHandler();
-	var postHandler = new PostHandler();
+	var pollHandler = new PollHandler();
+	var newPollHandler = new NewPollHandler();
 
 	app.route('/')
 		.get(isLoggedIn, function (req, res) {
@@ -62,19 +67,46 @@ module.exports = function (app, passport) {
 			res.sendFile(path + '/public/index.html');
 		});
 		
-	app.route('/polls/:id')
-		.get()
+	app.route('/poll/:id')
+		.get(function(req, res) {
+			var Poll = require('../models/polls');
+
+			
+			Poll.find({_id: req.params.id}, function(err, poll) {
+				if (err) throw err;
+				var template = fs.readFileSync('./public/showpoll.html').toString();
+			    var $ = cheerio.load(template);
+			    var options = Handlebars.compile($('#header').text());
+			    var chart = Handlebars.compile($('#chart').text());
+			    $('body').append(options(poll[0]));
+			    var chart_data = {
+			    	counts: poll[0].options.map((e) => { return e.count }),
+			    	labels: poll[0].options.map((e) => { return e.option }),
+			    };
+			    $('body').append(chart(chart_data));
+			    
+
+				res.end($.html());
+			})
+		})
 		.post();
 	
 	app.route('/mypolls')
-		.get();
+		.get(isLoggedIn, pollHandler.showMyPolls);
 		
 	app.route('/newpoll')
-		.get()
-		.post();
+		.get(isLoggedIn, function(req, res) { res.sendFile(path + '/public/newpoll.html') })
+		.post(isLoggedIn, pollHandler.submitPoll);
+	
+	app.route('/api/all/polls')
+		.get(pollHandler.getAllPolls);
 		
-	app.route('/api/:id/posts')
-		.get(isLoggedIn, postHandler.getPosts)
-		.post(isLoggedIn, postHandler.addPost)
-		.delete(isLoggedIn, postHandler.removeAllPosts);
+	app.route('/api/vote/:poll/:option')
+		.get(pollHandler.votePoll)
+		
+	app.route('/api/:id/polls')
+		.get(isLoggedIn, pollHandler.getAllPolls);
+	//	.post(isLoggedIn, pollHandler.addPost)
+	//	.delete(isLoggedIn, pollHandler.removeAllPosts);
+
 };

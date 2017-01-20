@@ -2,11 +2,22 @@
 
 var express = require('express');
 var routes = require('./app/routes/index.js');
+var User = require('./app/models/users.js');
+var Poll = require('./app/models/polls.js');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
+var bodyParser = require('body-parser');
+var fs = require('fs');
+var cheerio = require('cheerio');
 
 var app = express();
+
+app.use(bodyParser.json());
+
+app.use(bodyParser.urlencoded({
+	extended: true,
+}))
 require('dotenv').load();
 require('./app/config/passport')(passport);
 

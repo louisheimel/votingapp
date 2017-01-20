@@ -3,3 +3,31 @@
 nav.navbar { border-radius: 0; }
 
 .container-fluid { text-align: center; }
+
+#poll-list li a {
+    color:black;
+    cursor:default;
+}
+
+#poll-list li a:hover {
+    background-color: cyan;
+    text-decoration: none;
+}
+
+#poll-list {
+    height: 2em;
+    line-height: 2em;
+    list-style-type:none;
+}
+
+.options li {
+    list-style-type:none;
+}
+
+.poll-data {
+    margin-left: 55px;
+}
+
+.poll-data-container {
+    display:inline-block;
+}

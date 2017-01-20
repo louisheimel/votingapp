@@ -39,17 +39,24 @@
 			</div>
 		</nav>
 		<div class="container-fluid">
-		  <h1>FCC voting</h1>
-		  <h2>Check out these polls below</h2>
-		  <h3>Click a poll to participate and see the results, or sign in to create your own poll</h3>
-		  <ul id="poll-list">
-		  	
-		  </ul>
-		  
-		  
+		    <form method="POST" action="/newpoll">
+		        <fieldset>
+		            <h1>Make a new poll!</h1>
+		            <div class="form-group">
+		              <label for="title">Title:</label>
+                      <input name="title" class="form-control" type="text" />
+		            </div>
+                    <div class="form-group">
+                      <label for="options">Options:</label>
+                      <textarea name="options" class="form-control"></textarea>
+                    </div>
+
+                    <button type="submit" value="Submit" class="btn btn-default">Submit</button>
+		        </fieldset>
+		    </form>
+
 		</div>
 		<script type="text/javascript" src="common/ajax-functions.js"></script>
-		<script type="text/javascript" src="controllers/pollController.client.js"></script>
 	</body>
 
 </html>

@@ -18,14 +18,19 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		</script>
 		<script id="header" type="x-handlebars-template">
-		    <div class="poll-data-container">
-			    <h1 class="poll-data">{{label}}</h1>
-			    <ul class="options poll-data">
+		    <div class="poll-data-container poll-data">
+			    <h1>{{label}}</h1>
+			    <ul class="options">
 			      {{#each options}}
 			        <li><a href="/api/vote/{{../_id}}/{{@index}}" id={{this.option}}>{{this.option}}</a></li>
 			      {{/each}}
 			    </ul>
-			    <a class="btn btn-danger poll-data" href="/delete/poll/{{_id}}">Delete This Poll</a>
+			    <button class="btn btn-primary addoption">Add your own option</button></br>
+			    <a class="btn btn-danger" href="/delete/poll/{{_id}}">Delete This Poll</a>
+			    <form action="/api/vote/{{_id}}" method="GET">
+			      <input type="text" id="newoption" class="userinput" name="userinput" />
+			      <button class="userinput btn btn-primary" id="submitinput" type="submit">Submit your option!</button>
+			    </form>
 		    </div>
 		</script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.js"></script>
@@ -90,6 +95,7 @@
 
 		</div>
 		<script type="text/javascript" src="../common/ajax-functions.js"></script>
+		<script type="text/javascript" src="../controllers/showPollController.client.js"></script>
 	</body>
 
 </html>

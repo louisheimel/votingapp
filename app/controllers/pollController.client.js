@@ -16,7 +16,7 @@
             li.innerHTML = '<a href=\'\/poll\/' + el._id + '\'>' + el.label + '</a>';
             li.childNodes[0].classList.add('col-md-6', 'col-md-offset-3');
             poll_list.appendChild(li);
-        })
+        });
     }));
     
     

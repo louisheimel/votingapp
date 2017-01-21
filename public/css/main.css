@@ -31,3 +31,11 @@ nav.navbar { border-radius: 0; }
 .poll-data-container {
     display:inline-block;
 }
+
+button.poll-data {
+    margin-bottom: 5px;
+}
+
+.userinput {
+    display: none;
+}

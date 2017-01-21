@@ -19,22 +19,37 @@ function PollHandler() {
         var option = req.params.option;
         var poll = req.params.poll;
         
-        Poll.find({_id: poll}, function(err, current_poll) {
-            if (err) throw err;
-            var updated_count = current_poll[0]['options'][option]['count'] + 1;
-            var new_options = current_poll[0]['options'].map(function(e, i) {
-                if (i === +option) {
-                    return { count: updated_count, option: e.option };
-                } else {
-                    return e;
-                }
-            });
-            // res.json(new_options);
-            Poll.findOneAndUpdate({_id: poll}, {options: new_options}, function(err, p) {
+        if (req.query) {
+            Poll.find({_id: poll}, function(err, current_poll) {
                 if (err) throw err;
-                res.redirect('/poll/' + poll)
-            });
-        })
+                var new_options = current_poll[0]['options'].slice().concat({
+                    option: req.query.userinput,
+                    count: 1,
+                });
+                Poll.findOneAndUpdate({_id: poll}, {options: new_options}, function(err, current_poll) {
+                    if (err) throw err;
+                    res.redirect('/poll/' + poll);
+                });
+            })
+        } else {
+        
+            Poll.find({_id: poll}, function(err, current_poll) {
+                if (err) throw err;
+                var updated_count = current_poll[0]['options'][option]['count'] + 1;
+                var new_options = current_poll[0]['options'].map(function(e, i) {
+                    if (i === +option) {
+                        return { count: updated_count, option: e.option };
+                    } else {
+                        return e;
+                    }
+                });
+                // res.json(new_options);
+                Poll.findOneAndUpdate({_id: poll}, {options: new_options}, function(err, p) {
+                    if (err) throw err;
+                    res.redirect('/poll/' + poll)
+                });
+            })
+        }
         
        
     }

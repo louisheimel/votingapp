@@ -2,7 +2,6 @@
 
 (function() {
     var poll_list = document.querySelector('#poll-list');
-    var anchor = document.querySelector('a');
     var apiurl = appUrl + '/api/all/polls';
     
     function updateHtmlElement (data, element) {

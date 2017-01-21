@@ -55,7 +55,12 @@ module.exports = function (app, passport) {
 		
 	app.route('/polls')
 		.get(isLoggedIn, function(req, res) {
-			res.sendFile(path + '/public/index.html');
+			var template = fs.readFileSync('./public/index.html');
+			var $ = cheerio.load(template);
+			var header = Handlebars.compile($('#header').text());
+			$('body').prepend(header({username: req.user.github.username}));
+			res.end($.html());
+			// res.sendFile(path + '/public/index.html');
 		});
 		
 	app.route('/poll/:id')
@@ -68,12 +73,18 @@ module.exports = function (app, passport) {
 				var template = fs.readFileSync('./public/showpoll.html').toString();
 			    var $ = cheerio.load(template);
 			    var options = Handlebars.compile($('#header').text());
+			    var navbar = Handlebars.compile($('#navbar').text());
 			    var chart = Handlebars.compile($('#chart').text());
-			    $('body').append(options(poll[0]));
 			    var chart_data = {
 			    	counts: poll[0].options.map((e) => { return e.count }),
 			    	labels: poll[0].options.map((e) => { return e.option }),
 			    };
+			    $('body').prepend(navbar({
+			    	username: (req.hasOwnProperty('user') ? req.user.github.username : 'Guest'),
+			    	userLoggedIn: req.hasOwnProperty('user'),
+			    }));
+			    $('body').append(options(poll[0]));
+
 			    $('body').append(chart(chart_data));
 			    
 
@@ -86,7 +97,13 @@ module.exports = function (app, passport) {
 		.get(isLoggedIn, pollHandler.showMyPolls);
 		
 	app.route('/newpoll')
-		.get(isLoggedIn, function(req, res) { res.sendFile(path + '/public/newpoll.html') })
+		.get(isLoggedIn, function(req, res) { 
+			var template = fs.readFileSync('./public/newpoll.html').toString();
+			var $ = cheerio.load(template);
+			var header = Handlebars.compile($('#navbar').text());
+			$('body').prepend(header({username: req.user.github.username}));
+			res.end($.html());
+		})
 		.post(isLoggedIn, pollHandler.submitPoll);
 	
 	app.route('/api/all/polls')

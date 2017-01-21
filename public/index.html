@@ -18,27 +18,29 @@
 	</head>
 
 	<body>
-   		<nav class="navbar navbar-default navbar-inverse bg-inverse">
-			<div class="navbar-header">
-			  <a href="#" class="navbar-brand">Voting App</a>
-			</div>
-			<div class="container container-fluid">
-			  <ul class="nav navbar-nav navbar-right">
-
-			    <li><a href="/">Home</a></li>
-			    <li><a href="/mypolls">My Polls</a></li>
-			    <li><a href="/newpoll">New Poll</a></li>
-				<li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Louis Heimel <span class="caret"></span></a>
-		          <ul class="dropdown-menu">
-		          	
-		            <li><a href="#">Sign Out</a></li>
-		          </ul>
-       		 </li>	
-
-			  </ul>
-			</div>
-		</nav>
+		<script id="header" type="x-handlebars-template">
+	   		<nav class="navbar navbar-default navbar-inverse bg-inverse">
+				<div class="navbar-header">
+				  <a href="/polls" class="navbar-brand">Voting App</a>
+				</div>
+				<div class="container container-fluid">
+				  <ul class="nav navbar-nav navbar-right">
+	
+				    <li><a href="/">Home</a></li>
+				    <li><a href="/mypolls">My Polls</a></li>
+				    <li><a href="/newpoll">New Poll</a></li>
+					<li class="dropdown">
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{username}} <span class="caret"></span></a>
+			          <ul class="dropdown-menu">
+			          	
+			            <li><a href="/logout">Sign Out</a></li>
+			          </ul>
+	       		 </li>	
+	
+				  </ul>
+				</div>
+			</nav>
+		</script>
 		<div class="container-fluid">
 		  <h1>FCC voting</h1>
 		  <h2>Check out these polls below</h2>

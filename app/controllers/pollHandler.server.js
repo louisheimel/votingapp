@@ -50,9 +50,8 @@ function PollHandler() {
                 });
             })
         }
-        
-       
     }
+    
     this.submitPoll = function(req, res) {
         var newpoll = new Poll({ 
             label: req.body.title, 
@@ -69,7 +68,9 @@ function PollHandler() {
             var template = fs.readFileSync('./public/mypolls.html').toString();
 			var $ = cheerio.load(template);
 			var pollsCompiler = Handlebars.compile($('#polls').text());
+			var header = Handlebars.compile($('#navbar').text());
 			$('body').append(pollsCompiler(polls));
+			$('body').prepend(header({username: req.user.github.username}));
 			res.end($.html());
         })
     }

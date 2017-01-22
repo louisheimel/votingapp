@@ -19,7 +19,7 @@ function PollHandler() {
         var option = req.params.option;
         var poll = req.params.poll;
         
-        if (req.query) {
+        if (!!req.query.userinput) {
             Poll.find({_id: poll}, function(err, current_poll) {
                 if (err) throw err;
                 var new_options = current_poll[0]['options'].slice().concat({

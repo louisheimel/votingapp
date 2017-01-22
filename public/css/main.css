@@ -29,13 +29,8 @@
 }
 
 .poll-data-container {
-    position:absolute;
-    z-index: 2;
-}
-
-#myChart {
-    position:absolute;
-    z-index: 1;
+    width: 400px;
+    float: left;
 }
 
 .poll-data button,
@@ -55,4 +50,9 @@
 
 body {
     position: relative;
+}
+
+#chartcontainer {
+    width: 400px;
+    float: left;
 }

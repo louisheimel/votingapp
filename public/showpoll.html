@@ -35,7 +35,9 @@
 		</script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.js"></script>
 		<script id="chart" type="x-handlebars-template">
-			<canvas id="myChart" height=120 style=" display: block;float: left;"></canvas>
+		  <div id="chartcontainer">
+			<canvas id="myChart"></canvas>
+			</div>
 			<script>
 			var ctx = document.getElementById("myChart");
 			var myChart = new Chart(ctx, {

@@ -1,6 +1,6 @@
 @import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'); 
 
-nav.navbar { border-radius: 0; }
+.navbar { border-radius: 0; }
 
 .container-fluid { text-align: center; }
 
@@ -29,13 +29,30 @@ nav.navbar { border-radius: 0; }
 }
 
 .poll-data-container {
-    display:inline-block;
+    position:absolute;
+    z-index: 2;
 }
 
-button.poll-data {
-    margin-bottom: 5px;
+#myChart {
+    position:absolute;
+    z-index: 1;
+}
+
+.poll-data button,
+.poll-data a,
+.poll-data input {
+    margin-bottom: 10px;
 }
 
 .userinput {
     display: none;
+}
+
+.form-group label {
+    font-size: 27px;
+    float: left;
+}
+
+body {
+    position: relative;
 }

@@ -36,6 +36,7 @@
     "mongodb": "^2.2.21",
     "mongoose": "^4.1.0",
     "passport": "^0.3.2",
-    "passport-github": "^1.0.0"
+    "passport-github": "^1.0.0",
+    "passport-twitter": "^1.0.4"
   }
 }

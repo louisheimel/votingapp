@@ -44,8 +44,8 @@ module.exports = function (app, passport) {
 			res.json(req.user.github);
 		});
 
-	app.route('/auth/github')
-		.get(passport.authenticate('github'));
+	app.route('/auth/twitter')
+		.get(passport.authenticate('twitter'));
 
 	app.route('/auth/github/callback')
 		.get(passport.authenticate('github', {

@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = {
-	'githubAuth': {
-		'clientID': process.env.GITHUB_KEY,
-		'clientSecret': process.env.GITHUB_SECRET,
-		'callbackURL': process.env.APP_URL + 'auth/github/callback'
+	'twitterAuth': {
+		'consumerSecret': 'i0QOgQRv9fOJ2Wlns9nrAJTiNCJl0bHH4UELsA0g067vYfr8AO',
+		'callbackURL': 'https://powerful-tundra-47780.herokuapp.com/',
+		'consumerKey': 'CbdQxtjnrUdir2Can4nCg7Knt',
 	}
 };

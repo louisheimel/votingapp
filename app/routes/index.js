@@ -12,6 +12,7 @@ module.exports = function (app, passport) {
 		if (req.isAuthenticated()) {
 			next();
 		} else {
+			console.log('not working!');
 			res.redirect('/login');
 		}
 	}
@@ -47,10 +48,10 @@ module.exports = function (app, passport) {
 	app.route('/auth/twitter')
 		.get(passport.authenticate('twitter'));
 
-	app.route('/auth/github/callback')
-		.get(passport.authenticate('github', {
+	app.route('/auth/twitter/callback')
+		.get(passport.authenticate('twitter', {
 			successRedirect: '/',
-			failureRedirect: '/login'
+			failureRedirect: '/failure'
 		}));
 		
 	app.route('/polls')
@@ -60,7 +61,6 @@ module.exports = function (app, passport) {
 			var header = Handlebars.compile($('#header').text());
 			$('body').prepend(header({username: req.user.github.username}));
 			res.end($.html());
-			// res.sendFile(path + '/public/index.html');
 		});
 		
 	app.route('/poll/:id')

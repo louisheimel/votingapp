@@ -12,7 +12,6 @@ module.exports = function (app, passport) {
 		if (req.isAuthenticated()) {
 			next();
 		} else {
-			console.log('not working!');
 			res.redirect('/login');
 		}
 	}
@@ -59,7 +58,7 @@ module.exports = function (app, passport) {
 			var template = fs.readFileSync('./public/index.html');
 			var $ = cheerio.load(template);
 			var header = Handlebars.compile($('#header').text());
-			$('body').prepend(header({username: req.user.github.username}));
+			$('body').prepend(header({username: req.user.twitter.username}));
 			res.end($.html());
 		});
 		
@@ -80,7 +79,7 @@ module.exports = function (app, passport) {
 			    	labels: poll[0].options.map((e) => { return e.option }),
 			    };
 			    $('body').prepend(navbar({
-			    	username: (req.hasOwnProperty('user') ? req.user.github.username : 'Guest'),
+			    	username: (req.hasOwnProperty('user') ? req.user.twitter.username : 'Guest'),
 			    	userLoggedIn: req.hasOwnProperty('user'),
 			    }));
 			    $('body').append(options(poll[0]));
@@ -101,7 +100,7 @@ module.exports = function (app, passport) {
 			var template = fs.readFileSync('./public/newpoll.html').toString();
 			var $ = cheerio.load(template);
 			var header = Handlebars.compile($('#navbar').text());
-			$('body').prepend(header({username: req.user.github.username}));
+			$('body').prepend(header({username: req.user.twitter.username}));
 			res.end($.html());
 		})
 		.post(isLoggedIn, pollHandler.submitPoll);

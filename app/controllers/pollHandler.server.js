@@ -70,7 +70,7 @@ function PollHandler() {
 			var pollsCompiler = Handlebars.compile($('#polls').text());
 			var header = Handlebars.compile($('#navbar').text());
 			$('body').append(pollsCompiler(polls));
-			$('body').prepend(header({username: req.user.github.username}));
+			$('body').prepend(header({username: req.user.twitter.username}));
 			res.end($.html());
         })
     }
